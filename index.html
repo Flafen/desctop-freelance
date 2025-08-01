@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/vite.svg"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Vite + TS</title>
+    <link
+      rel="stylesheet"
+      href="./src/scss/style.scss"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header_container container">
+        <h1 class="header__logo">TaskMatch</h1>
+
+        <nav class="header__nav">
+          <ul class="header__nav-list">
+            <li class="header__nav-item text">Заказчикам</li>
+            <li class="header__nav-item text">Фрилансерам</li>
+            <li class="header__nav-item text">Вакансии</li>
+          </ul>
+        </nav>
+
+        <div class="header__actions">
+          <button class="button">Вход</button>
+          <button class="button button--primary">Регистрация</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="modal hidden" id="multiStepModal">
+        <div class="modal-content">
+          <div class="steps">
+            <div class="step active" data-step="1">
+              <div class="progress__wrapper">
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-grey"></div>
+                <div class="progress__bar progress__bar-grey"></div>
+                <div class="progress__bar progress__bar-grey"></div>
+              </div>
+              <h2>Какую задачу нужно выполнить?</h2>
+              <p>Название поможет специалистам быстрее понять, что нужно сделать</p>
+              <input placeholder="Поиск" />
+              <div class="tags">
+                <span>Дизайнер</span>
+                <span>Дизайнер</span>
+                <span>Дизайнер</span>
+                <span>Дизайн</span>
+                <span>Дизайнер</span>
+                <span>Дизайн</span>
+              </div>
+              <button class="button button--green next">Далее</button>
+            </div>
+
+            <div class="step" data-step="2">
+              <div class="progress__wrapper">
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-grey"></div>
+                <div class="progress__bar progress__bar-grey"></div>
+              </div>
+              <h2>О фрилансере</h2>
+              <p>Эта информация поможет нам найти для Вас лучшего специалиста</p>
+              <label>Образование <span>Необязательно</span>
+                <select><option>Неважно</option></select>
+              </label>
+
+              <label>Стаж работы <span>Необязательно</span>
+                <div class="modal__expirience">
+                  <select id="experience-from" required>
+                    <option value="" disabled selected hidden>От лет</option>
+                    <option value="0">Нет опыта</option>
+                    <option value="1">1 год</option>
+                    <option value="2">2 года</option>
+                    <option value="3">3 года</option>
+                  </select>
+
+                  <select id="experience-to" required>
+                    <option value="" disabled selected hidden>до лет</option>
+                    <option value="1">1 год</option>
+                    <option value="2">2 года</option>
+                    <option value="3">3 года</option>
+                  </select>
+                </div>
+              </label>
+              <label>Срочность <span>Необязательно</span>
+                <div class="radio-group">
+                  <label class="custom-radio">
+                  <input type="radio" name="urgency" value="Не срочно" />
+                  <span class="checkmark circle"></span>
+                  Не срочно
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="urgency" value="Очень срочно" />
+                  <span class="checkmark circle"></span>
+                  Очень срочно
+                </label>
+                </div>
+              </label>
+              <button class="next">Далее</button>
+            </div>
+
+            <div class="step" data-step="3">
+              <div class="progress__wrapper">
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-grey"></div>
+              </div>
+              <h2>Дополните задачу</h2>
+              <p>Можете добавить особенности или пожелания вашей задачи</p>
+              <div>
+                <textarea class="third-step__input" placeholder="Поиск"></textarea>
+                <img class="paperclip" src="/Paperclip.svg" alt="">
+              </div>
+              <button class="next">Готово</button>
+            </div>
+
+            <div class="step" data-step="4">
+              <div class="progress__wrapper">
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-green"></div>
+                <div class="progress__bar progress__bar-green"></div>
+              </div>
+              <h2>Отлично! Ищем подходящих фрилансеров</h2>
+              <p>Это может занять пару секунд</p>
+              <img class="findfreelancer" src="findfreelancer.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="freelance container">
+        <div class="freelance__left-block">
+          <h1>Фриланс без риска и потери времени</h1>
+          <p class="freelance__text text">
+            Только живые профили, реальные кейсы и честные отзывы наймите того,
+            кому действительно можно доверять.
+          </p>
+          <div class="freelance__actions">
+            <button class="freelance__button button button--green" id="find">
+              Подобрать специалиста
+            </button>
+            <button class="freelance__button button button--light">
+              Узнать цены
+            </button>
+          </div>
+        </div>
+        <img
+          src="./------------------- 1.svg"
+          alt="freelancer"
+        />
+      </section>
+      <section class="work-desc container">
+        <h1>Как это работает</h1>
+        <div class="work-desc__cards-wrapper">
+          <div class="work-desc__card">
+            <img
+              src="./1Rectangle 4253045.svg"
+              alt=""
+            />
+            <h2>Опишите задачу</h2>
+            <p>
+              Нажмите кнопку «Подобрать специалиста» и ответьте на пару вопросов
+              — мы предложим подходящих исполнителей. Или воспользуйтесь
+              фильтрами и найдите фрилансера самостоятельно.
+            </p>
+          </div>
+          <div class="work-desc__card">
+            <img
+              src="./2Rectangle 4253045.svg"
+              alt=""
+            />
+            <h2>Выберете фрилансера</h2>
+            <p>
+              Сравните портфолио, прочитайте отзывы, задайте вопросы фрилансеру
+              —выберите того, кто вам подходит.
+            </p>
+          </div>
+          <div class="work-desc__card">
+            <img
+              src="./3Rectangle 4253045.svg"
+              alt=""
+            />
+            <h2>Получите результат и оцените качество</h2>
+            <p>
+              Убедитесь, что работа выполнена так, как вы ожидали. Нужно что-то
+              подправить? Просто внесите правки. Всё устроило — нажмите
+              «Оплатить работу».
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="tasks container">
+        <h1>Популярные задачи</h1>
+        <div class="tasks__wrapper">
+          <img src="/1.svg" class="tasks__task card-1" loading="lazy"></img>
+          <img src="/2.svg" class="tasks__task card-2" loading="lazy"></img>
+          <img src="/3.svg" class="tasks__task card-3" loading="lazy"></img>
+          <img src="/4.svg" class="tasks__task card-4" loading="lazy"></img>
+          <img src="/5.svg" class="tasks__task card-5" loading="lazy"></img>
+          <img src="/6.svg" class="tasks__task card-6" loading="lazy"></img>
+          <img src="/7.svg" class="tasks__task card-7" loading="lazy"></img>
+        </div>
+      </section>
+      <section class="best container">
+        <h1>Лучшие фрилансеры</h1>
+        <div class="best__wrapper">
+          <div class="best__filter-wrapper">
+            <div class="best__job-section">
+  <h2>Работа</h2>
+
+  <div class="job-item">
+    <div class="job-header">
+      <img src="/job1.svg" alt="">
+      <span>Программирование</span>
+      <img src="/CaretDown.svg" class="caret" alt="">
+    </div>
+    <div class="job-content">
+      <ul>
+        <li>Frontend разработка</li>
+        <li>Backend разработка</li>
+        <li>Мобильные приложения</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-item">
+    <div class="job-header">
+      <img src="/job2.svg" alt="">
+      <span>Дизайн и арт</span>
+      <img src="/CaretDown.svg" class="caret" alt="">
+    </div>
+    <div class="job-content">
+      <ul>
+        <li>UI/UX дизайн</li>
+        <li>3D графика</li>
+        <li>Иллюстрации</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-item">
+    <div class="job-header">
+      <img src="/job3.svg" alt="">
+      <span>Продвижение</span>
+      <img src="/CaretDown.svg" class="caret" alt="">
+    </div>
+    <div class="job-content">
+      <ul>
+        <li>SEO</li>
+        <li>Контекстная реклама</li>
+        <li>Соцсети</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-item">
+    <div class="job-header">
+      <img src="/job4.svg" alt="">
+      <span>Переводы</span>
+      <img src="/CaretDown.svg" class="caret" alt="">
+    </div>
+    <div class="job-content">
+      <ul>
+        <li>Английский</li>
+        <li>Технический перевод</li>
+        <li>Редактирование</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-item">
+    <div class="job-header">
+      <img src="/job5.svg" alt="">
+      <span>Работа с текстом</span>
+      <img src="/CaretDown.svg" class="caret" alt="">
+    </div>
+    <div class="job-content">
+      <ul>
+        <li>Копирайтинг</li>
+        <li>Рерайт</li>
+        <li>Написание статей</li>
+      </ul>
+    </div>
+  </div>
+
+  <span>Еще</span>
+</div>
+
+            <div class="best__payment-section">
+                <h2>Оплата</h2>
+                <div>
+                  <input type="number" name="from" placeholder="От">
+                  <input type="number" name="to" placeholder="До">
+                </div>
+            </div>
+            <div class="best__experience-section">
+              <h2>Стаж работы</h2>
+              <div>
+
+                <select id="experience-from" required>
+                  <option value="" disabled selected hidden>От лет</option>
+                <option value="0">Нет опыта</option>
+                <option value="1">1 год</option>
+                <option value="2">2 года</option>
+                <option value="3">3 года</option>
+              </select>
+
+              <select id="experience-to" required>
+                <option value="" disabled selected hidden>до лет</option>
+                <option value="1">1 год</option>
+                <option value="2">2 года</option>
+                <option value="3">3 года</option>
+              </select>
+            </div>
+            </div>
+            <div class="best__education-section">
+              <fieldset class="education">
+                <legend><h2>Образование</h2></legend>
+
+                <label class="custom-radio">
+                  <input type="radio" name="education" value="Высшее" />
+                  <span class="checkmark"></span>
+                  Высшее
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="education" value="Незаконченное высшее" />
+                  <span class="checkmark"></span>
+                  Незаконченное высшее
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="education" value="Среднее специальное" checked />
+                  <span class="checkmark"></span>
+                  Среднее специальное
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="education" value="Среднее" />
+                  <span class="checkmark"></span>
+                  Среднее
+                </label>
+              </fieldset>
+
+            </div>
+            <div class="best__urgency-section">
+              <fieldset class="urgency">
+                <legend><h2>Срочность</h2></legend>
+
+                <label class="custom-radio">
+                  <input type="radio" name="urgency" value="Не срочно" />
+                  <span class="checkmark circle"></span>
+                  Не срочно
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="urgency" value="Очень срочно" />
+                  <span class="checkmark circle"></span>
+                  Очень срочно
+                </label>
+              </fieldset>
+            </div>
+            <div class="best__visit-section">
+              <fieldset class="visit">
+                <legend><h2>Статус посещения</h2></legend>
+
+                <label class="custom-radio">
+                  <input type="radio" name="attendance" value="Все" />
+                  <span class="checkmark circle"></span>
+                  Все
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="attendance" value="Онлайн" />
+                  <span class="checkmark circle"></span>
+                  Онлайн
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="attendance" value="Оффлайн" />
+                  <span class="checkmark circle"></span>
+                  Оффлайн
+                </label>
+
+                <label class="custom-radio">
+                  <input type="radio" name="attendance" value="Посещает часто" />
+                  <span class="checkmark circle"></span>
+                  Посещает часто
+                </label>
+              </fieldset>
+            </div>
+          </div>
+          <div class="best__search-wrapper">
+            <div class="best__search">
+              <input type="text" placeholder="Поиск">
+              <button>Найти</button>
+            </div>
+            <div class="best__result">
+              <div class="best__card">
+                <div class="best__userinfo">
+                  <img class="userphoto" src="/Vika.png" alt="user photo">
+                  <div>
+                    <h3>Виктория Бойко</h3>
+                    <p>Поисковое продвижение (SEO) · SEO-аудит сайтов</p>
+                    <p>28 лет, Сочи</p>
+                    <div class="rating">
+                      <img class="star" src="/Star.svg" />
+                      <p>5,0 205 Отзыва</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="best__photo">
+                  <img src="/vika_works.png" alt="">
+                </div>
+                <div class="best__buttons">
+                  <button class="button button--green best__button">Предложить работу</button>
+                  <button class="button button--light best__button">Написать</button>
+                </div>
+              </div>
+              <div class="best__card">
+                <div class="best__userinfo">
+                  <img class="userphoto" src="/Inav.png" alt="">
+                  <div>
+                    <h3>Андрей Сидоров</h3>
+                    <p>Дизайн сайтов · Создание сайта под ключ</p>
+                    <p>28 лет, Сочи</p>
+                    <div class="rating">
+                      <img class="star" src="/Star.svg" />
+                      <p>5,0 205 Отзыва</p>
+                    </div>                  </div>
+                </div>
+                <div class="best__photo">
+                  <img src="/ivan_works.png" alt="">
+                </div>
+                <div class="best__buttons">
+                  <button class="button button--green best__button">Предложить работу</button>
+                  <button class="button button--light best__button">Написать</button>
+                </div>
+              </div>
+              <div class="best__card">
+                <div class="best__userinfo">
+                  <img class="userphoto" src="/Veta.png" alt="">
+                  <div>
+                    <h3>Вета Громова</h3>
+                    <p>Дизайн сайтов · Создание сайта под ключ</p>
+                    <p>28 лет, Сочи</p>
+                    <div class="rating">
+                      <img class="star" src="/Star.svg" />
+                      <p>5,0 205 Отзыва</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="best__photo">
+                  <img src="/veta_works.png" alt="">
+                </div>
+                <div class="best__buttons">
+                  <button class="button button--green best__button">Предложить работу</button>
+                  <button class="button button--light best__button">Написать</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="comment container">
+        <h1>Отзывы о TaskMatch</h1>
+        <div class="comment__wrapper ">
+          <div class="comment__card">
+            <div class="comment__user">
+              <img src="/comment1.png" alt="">
+              <h3>Иван<br/> Иванов </h3>
+            </div>
+            <p>Сервис очень понравился, удобен в использовании. <br/>
+Я быстро нашел нужного работника и остался доволен его работой. Спасибо за ваш труд! </p>
+          </div>
+          <div class="comment__card">
+            <div class="comment__user">
+              <img src="/comment2.png" alt="">
+              <h3>Никита <br/>Шпиц</h3>
+            </div>
+            <p>Сервис очень понравился, удобен в использовании. <br/>
+Я быстро нашел нужного работника и остался доволен его работой. Спасибо за ваш труд! </p>
+          </div>
+          <div class="comment__card">
+            <div class="comment__user">
+              <img src="/comment3.png" alt="">
+              <h3>Андрей <br/>Морозов </h3>
+            </div>
+            <p>Сервис очень понравился, удобен в использовании. <br/>
+Я быстро нашел нужного работника и остался доволен его работой. Спасибо за ваш труд! </p>
+          </div>
+          <div class="comment__card">
+            <div class="comment__user">
+              <img src="/comment4.png" alt="">
+              <h3>Ирина <br/>Мэй</h3>
+            </div>
+            <p>Сервис очень понравился, удобен в использовании. <br/>
+Я быстро нашел нужного работника и остался доволен его работой. Спасибо за ваш труд! </p>
+          </div>
+        </div>
+        <h4>Посмотреть еще</h4>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__nav">
+          <div>
+            <h3>Фриланс</h3>
+            <a href="#">Все фрилансеры</a>
+            <a href="#">Отзывы о фрилансерах</a>
+            <a href="#">Проверка профиля</a>
+            <a href="#">Plus</a>
+          </div>
+          <div>
+            <h3>Полезная информация</h3>
+            <a href="#">Блог</a>
+            <a href="#">Мы в прессе</a>
+            <a href="#">Статистика цен</a>
+            <a href="#">Партнеры и акции</a>
+          </div>
+          <div>
+            <h3>Помощь</h3>
+            <a href="#">База знаний</a>
+            <a href="#">Забыли пароль?</a>
+            <a href="#">Написать Команде заботы о клиентах</a>
+            <a href="#">Правила сервиса</a>
+          </div>
+        </div>
+        <div class="footer__final">
+          <p>
+            TaskMatch <span>© 2025</span>
+          </p>
+          <img src="/social.png" alt="">
+        </div>
+      </div>
+    </footer>
+    <script
+      type="module"
+      src="/src/main.ts"
+    ></script>
+  </body>
+</html>
